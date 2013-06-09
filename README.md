@@ -91,9 +91,9 @@ Note :  Please follow the naming convention of input files i.e input<Number> .
 b) Passing File names as agrument.
 
 1) open build.xml file 
-5) go to target run and add arguement as follows
+2) go to target run and add arguement as follows
     <arg value="1"/>
     <arg value="input/input1"/>
     <arg value="input/input2"/>
-6) Run the command 'ant main'.
-7) The output of each input will be created under 'resources/output/'. 
+3) Run the command 'ant main'.
+4) The output of each input will be created under 'resources/output/'. 
