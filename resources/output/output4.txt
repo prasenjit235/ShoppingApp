@@ -1,0 +1,4 @@
+OUTPUT 4 :
+1 imported bottle of perfume : 32.19
+Sales Taxes: 4.20
+Total: 32.19

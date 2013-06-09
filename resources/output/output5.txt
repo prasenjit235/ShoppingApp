@@ -1,0 +1,5 @@
+OUTPUT 5 :
+12 pens : 13.20
+20 imported combs : 46.00
+Sales Taxes: 7.20
+Total: 59.20
