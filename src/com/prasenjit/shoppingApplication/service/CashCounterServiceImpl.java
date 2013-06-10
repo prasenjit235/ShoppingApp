@@ -125,4 +125,8 @@ public class CashCounterServiceImpl implements ICashCounterService {
 		totalCost = totalCostBD.floatValue();
 		return totalCost;
 	}
+
+	public List<String> getCashCounterItems() {
+		return cashCounterItems;
+	}
 }

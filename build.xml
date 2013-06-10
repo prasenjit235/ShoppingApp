@@ -4,9 +4,15 @@
     </description>
 
   <property name="src" location="src"/>
+  <property name="test" location="test"/>
   <property name="build" location="build"/>
   <property name="dist"  location="dist"/>
-
+  <property name="lib"  location="lib"/>
+  <property name="resources"  location="resources"/>
+  
+	<path id="classpath">
+        <fileset dir="${lib}" includes="**/*.jar"/>
+    </path>
   <target name="init">
     <!-- Create the time stamp -->
     <tstamp/>
@@ -17,7 +23,8 @@
   <target name="compile" depends="init"
         description="compile the source " >
     <!-- Compile the java code from ${src} into ${build} -->
-    <javac srcdir="${src}" destdir="${build}"/>
+    <javac srcdir="${src};${test}" destdir="${build}" classpathref="classpath">
+	</javac>
   </target>
 
   <target name="dist" depends="compile"
@@ -39,15 +46,39 @@
     <delete dir="${dist}"/>
   </target>
 
-  <target name="run" depends="dist">
+	<target name="run" depends="dist">
+		<delete dir="${resources}/output"/>
+		<mkdir dir="${resources}/output" />
         <java jar="${dist}/lib/${ant.project.name}.jar" fork="true">
 		<arg value="0"/>
-      		<arg value="AppMain.properties"/>
+		<arg value="AppMain.properties"/>
+		<!--arg value="1"/>
+		<arg value="input/input1"/>
+		<arg value="input/input2"/-->
       	</java>
     </target>
 
     <target name="clean-build" depends="clean,dist"/>
 
-    <target name="main" depends="clean,run"/>
+    <target name="main" depends="clean-build,test,run"/>
+	 <path id="application" location="${dist}/lib/${ant.project.name}.jar"/>	
+	<target name="test" depends="compile" description="Run all tests">
+        <mkdir dir="${dist}/reports" />
+        <junit printsummary="yes" haltonfailure="yes">
+            <classpath>
+				<pathelement path="${build}"/>
+				<fileset dir="lib">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+			
+             <batchtest fork="yes" todir="${dist}/reports">
+				<formatter type="plain"/>
+				<fileset dir="test">
+                    <include name="**/*Test*.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
 	
 </project>

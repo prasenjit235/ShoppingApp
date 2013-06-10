@@ -1,0 +1,40 @@
+How to use:
+-----------------------
+
+This can be used in two supported ways as of now:
+
+a) Define your own properties file or resuse the existing AppMain.properties file.
+
+1) Add 'SHOPPINGAPP.FILE_NAMES' in property file e.g - SHOPPINGAPP.FILE_NAMES=input/input1,input/input2 observe that the file 'input1' is under 'input' directory.The 'input' directory is under 'resources' directory. If any input file is under a separate directory , make sure that directory is under 'resources' directory.
+
+2) Add comma separated items in categories 'SHOPPINGAPP.MEDICAL' , 'SHOPPINGAPP.BOOKS','SHOPPINGAPP.FOOD', 'SHOPPINGAPP.OTHERS' . As of now these are the only supported categories. e.g. SHOPPINGAPP.FOOD=chocolate bar,chocolates SHOPPINGAPP.OTHERS=CD,perfume,pens,combs
+
+3) Copy the property file under 'resources' directory.
+
+4) open build.xml file
+
+5) go to target run and add arguement as follows
+	<arg value="0"/>
+    <arg value="AppMain.properties"/>
+
+6) Run the command 'ant main'.
+
+7) The output of each input will be created under 'resources/output/'.
+
+Note : Please follow the naming convention of input files i.e input .
+
+    While defining item in a file please follow the convention. (<Quantity> <item description> at <Unit Price>)
+	
+b) Passing File names as agrument.
+
+1) open build.xml file
+
+2) go to target run and add arguement as follows
+
+	<arg value="1"/>
+    <arg value="input/input1"/>
+	<arg value="input/input2"/>
+
+3) Run the command 'ant main'.
+
+4) The output of each input will be created under 'resources/output/'.

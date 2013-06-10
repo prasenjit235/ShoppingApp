@@ -29,9 +29,12 @@ public class ItemFactory {
 		Set<String> keySet = ItemCategories.getItemVsItemCategories()
 		.keySet();
 		boolean itemFound=false;
+		String itemDes=null;
 		for (String string : keySet) {
 			if (itemDescription.contains(string)){
 				itemFound=true;
+				itemDes=string;
+				break;
 			}
 		}
 		if (!itemFound) {
@@ -52,20 +55,16 @@ public class ItemFactory {
 				item.getTaxCategories().add(TaxCategories.ADDITIONAL);
 			}
 			
-			for (String string : keySet) {
-				if (itemDescription.contains(string)
-						&& ItemCategories.getItemVsItemCategories().get(string) != null
+				if (itemFound
+						&& ItemCategories.getItemVsItemCategories().get(itemDes) != null
 						&& !ItemCategories.getItemVsItemCategories()
-								.get(string).isBasicTaxExempted()) {
+								.get(itemDes).isBasicTaxExempted()) {
 					item.getTaxCategories().add(TaxCategories.BASIC);
 				}
-			}
 
-			for (String string : keySet) {
-				if (itemDescription.contains(string)) {
+				if (itemFound) {
 					item.setCategory(ItemCategories.getItemVsItemCategories()
-							.get(string));
-				}
+							.get(itemDes));
 			}
 		} catch (NumberFormatException e) {
 			InvalidItemException invalidItemException = new InvalidItemException(
